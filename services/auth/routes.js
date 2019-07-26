@@ -29,7 +29,9 @@ router.post("/login", mdlware.validateBody, async (req, res, next) => {
     });
     if (user && bcrypt.compareSync(req.user.password, user.password)) {
       const token = helpers.generateToken(user);
-      res.status(200).json({ user, token });
+      res
+        .status(200)
+        .json({ user: { id: user.id, username: user.username }, token });
     } else {
       res.status(401).json({ message: "User and password not authorized " });
     }
@@ -37,3 +39,5 @@ router.post("/login", mdlware.validateBody, async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;

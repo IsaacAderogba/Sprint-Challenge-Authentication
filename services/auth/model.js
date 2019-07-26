@@ -7,10 +7,13 @@ module.exports = {
   findUserById: function(id) {
     return db("users")
       .where({ id })
+      .select("id", "username")
       .first();
   },
   findUserByFilter: function(filter) {
-    return db('users').where(filter).first();
+    return db("users")
+      .where(filter)
+      .first();
   },
   insertUser: function(user) {
     return db("users")
